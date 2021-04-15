@@ -1,5 +1,8 @@
+import React, { useState } from "react";
+
 import "./App.css";
 import ExpenseListItems from "./components/Expenses/ExpensesListItems";
+import ExpenseFilter from "./components/ExpenseFilter/ExpenseFilter";
 import NewExpense from "./components/NewExpense/NewExpense";
 
 const App = () => {
@@ -24,11 +27,24 @@ const App = () => {
     },
   ];
 
+  const addExpenseHandler = (expense) => {
+    console.log("In app js!");
+    console.log(expense);
+  };
+
+  const [filterYear, setFilterYear] = useState("2022");
+
+  const onFilterChange = (year) => {
+    setFilterYear(year);
+  };
+
   return (
     <div className="App">
       <h2>Hummmmm</h2>
       <p>This is also visible!</p>
-      <NewExpense />
+      <NewExpense onAddExpense={addExpenseHandler} />
+      <ExpenseFilter onFilterChange={onFilterChange} />
+      <h1>{filterYear}</h1>
       <ExpenseListItems items={expences} />
     </div>
   );
