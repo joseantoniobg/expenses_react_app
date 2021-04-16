@@ -5,21 +5,9 @@ const ExpenseForm = (props) => {
   const [enteredTitle, setEnteredTitle] = useState("");
   const [enteredAmount, setEnteredAmount] = useState("");
   const [enteredDate, setEnteredDate] = useState("");
-
-  // const [userInput, setUserInput] = useState({
-  //   enteredTitle: "",
-  //   setEnteredAmount: "",
-  //   enteredDate: "",
-  // });
+  const [addExpense, setAddExpense] = useState(true);
 
   const titleHandler = (event) => {
-    // setUserInput({
-    //   enteredTitle: event.target.value,
-    //   ...userInput,
-    // });
-    // setUserInput((previousState) => {
-    //   return { ...previousState, enteredTitle: event.target.value };
-    // });
     setEnteredTitle(event.target.value);
   };
 
@@ -42,9 +30,14 @@ const ExpenseForm = (props) => {
     setEnteredTitle("");
     setEnteredDate("");
     setEnteredAmount("");
+    togleAddExpenseHandler();
   };
 
-  return (
+  const togleAddExpenseHandler = () => {
+    setAddExpense(() => !addExpense);
+  };
+
+  const fields = (
     <form onSubmit={submitHandler}>
       <div className="new-expense__controls">
         <div className="new-expense__control">
@@ -77,6 +70,14 @@ const ExpenseForm = (props) => {
       </div>
     </form>
   );
+
+  const addExpenseButton = (
+    <div className="new-expense__actions_center">
+      <button onClick={togleAddExpenseHandler}>Add New Expense</button>
+    </div>
+  );
+
+  return <div>{addExpense ? addExpenseButton : fields}</div>;
 };
 
 export default ExpenseForm;
